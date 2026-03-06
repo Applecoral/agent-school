@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   keywords: ['AI', 'Agents', 'LLM', 'Machine Learning', 'Directory', 'Education'],
   authors: [{ name: 'CommitFlow' }],
   openGraph: {
-    title: 'Agent School',
+    title: 'Agent Bchool',
     description: 'Learn and discover AI resources for humans and agents.',
     url: 'https://applecoral.github.io/agent-school',
     siteName: 'Agent School',
