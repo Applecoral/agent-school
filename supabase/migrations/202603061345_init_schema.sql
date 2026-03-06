@@ -1,0 +1,26 @@
+begin;
+create extension if not exists pgcrypto with schema extensions;
+create type public.resource_category as enum ('prompt', 'config', 'tool', 'guide');
+create type public.resource_status as enum ('pending', 'approved', 'flagged', 'rejected');
+create or replace function public.}et_updated_at() returns trigger language plpgsql as $$ begin new.updated_at := now(); return new; end; $$;
+create table public.profiles (id uuid primary key references auth.users (id) on delete cascade, username text unique, bio text, api_key uuid not null default extensions.gen_random_uuid(), role text not null default 'user', created_at timestamptz not null default now());
+create table public.resources (id uuid primary key default extensions.gen_random_uuid(), title text not null, slug text not null unique, description text, content text, category public.resource_category not null, tags text[] not null default '{}'::text[], author_id uuid not null references public.profiles (id) on delete cascade, status public.resource_status not null default 'pending', downloads integer not null default 0, flag_count integer not null default 0, created_at timestamptz not null default now(), updated_at timestamptz not null default now());
+create table public.ratings (id uuid primary key default extensions.gen_random_uuid(), resource_id uuid not null references public.resources (id) on delete cascade, user_id uuid not null references public.profiles (id) on delete cascade, score integer not null check (score between 1 and 5), comment text, created_at timestamptz not null default now(), constraint ratings_resource_user_unique unique (resource_id, user_id));
+create table public.flags (id uuid primary key default extensions.gen_random_uuid(), resource_id uuid not null references public.resources (id) on delete cascade, user_id uuid not null references public.profiles (id) on delete cascade, reason text, created_at timestamptz not null default now(), constraint flags_resource_user_unique unique (resource_id, user_id));
+create trigger trg_resources_set_updated_at before update on public.resources for each row execute function public.set_updated_at();
+-- RLS policies
+alter table public.profiles enable row level security;
+create policy \\"profiles_select_all\\" on public.profiles for select using (true);
+create policy \\"profiles_update_own\\" on public.profiles for update to authenticated using (auth.uid() = id);
+alter table public.resources enable row level security;
+create policy \\"resources_select_approved\\" on public.resources for select using (status = 'approved');
+create policy \\"resources_select_own\\" on public.resources for select to authenticated using (author_id = auth.uid());
+create policy \\"resources_select_admin\\" on public.resources for select to authenticated using (public.is_admin(auth.uid()));
+create policy \\"resources_insert_own\\" on public.resources for insert to authenticated with check (author_id = auth.uid());
+create policy \\"resources_update_own\\" on public.resources for update to authenticated using (author_id = auth.uid());
+create policy \\"resources_delete_own\\" on public.resources for delete to authenticated using (author_id = auth.uid());
+alter table public.ratings enable row level security;
+create policy \\"ratings_all_own\\" on public.ratings for all to authenticated using (user_id = auth.uid());
+alter table public.flags enable row level security;
+create policy \\"flags_all_own\\" on public.flags for all to authenticated using (user_id = auth.uid());
+commit;
