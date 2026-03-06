@@ -1,0 +1,1 @@
+export const sampleResources = [{ id: 'res_001', title: 'Agentic Workflows', description: 'A guide to agent patterns.', url: 'https://example.com' }];
