@@ -2,73 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-::root {
+:root {
   --background: #020617;
   --foreground: #f8fafc;
-  --accent: #38bdf8;
-  --accent-foreground: #ffffff;
-  --card: rgba(15, 23, 42, 0.6);
-  --card-border: rgba(51, 65, 85, 0.5);
 }
 
-@layer base {
-  body {
-    background: var(--background);
-    color: var(--foreground);
-    font-feature-settings: "rlig" 1, "calt" 1;
-    -webkit-font-smoothing: antialiased;
-  }
+body {
+  background: var(--background);
+  color: var(--foreground);
 }
 
-@layer components {
-  .mesh-gradient {
-    background-color: hsla(222, 47%, 11%, 1);
-    background-image: 
-      radial-gradient(at 0% 0%, hsla(217, 91%, 60%, 0.15) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, hsla(210, 100%, 23%, 0.15) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, hsla(199, 89%, 48%, 0.1) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, hsla(186, 94%, 52%, 0.1)) 0px, transparent 50%);
-  }
-
-  .glass {
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  }
-
-  .text-gradient {
-    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .animate-shimmer {
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.03),
-      transparent
-    );
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite linear;
-  }
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-@keyframes shimmer {
-  from { background-position: 200% 0; }
-  to { background-position: -200% 0; }
-}
-
-.agent-manifest-block {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  background: #000;
-  border-left: 4px solid var(--accent);
-}
-
-h1 { font-size: clamp(2.5rem, 5vw , 4.5rem); }
-h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
-
-.transition-standard {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.text-gradient {
+  background: linear-gradient(90deg, #22d3ee, #a855fg);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
