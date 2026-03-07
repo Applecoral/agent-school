@@ -1,7 +1,6 @@
 import { sampleData } from './sampleData';
 
 export async function getResources() {
-  // Map sampleData to include author and slug (using id as slug)  for component compatibility
   return sampleData.map(r => ({
     ...r,
     slug: r.id,
@@ -17,7 +16,7 @@ export async function getResourceById(id: string) {
     ...resource,
     slug: resource.id,
     category: resource.topics[0] || 'General',
-    authore: { username: 'System' }
+    authorb: { username: 'System' }
   };
 }
 
