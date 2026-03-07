@@ -1,5 +1,12 @@
-import { getResourceById } from '@/lib/resources';
+import { getResourceById, getResources } from '@/lib/resources';
 import { NextResponse } from 'next/server';
+
+export async function generateStaticParams() {
+  const resources = await getResources();
+  return resources.map((resource) => ({
+    id: resource.id,
+  }));
+}
 
 export async function GET(
   request: Request,
