@@ -16,7 +16,7 @@ export async function getResourceById(id: string) {
     ...resource,
     slug: resource.id,
     category: resource.topics[0] || 'General',
-    authorb: { username: 'System' }
+    author: { username: 'System' }
   };
 }
 
