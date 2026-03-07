@@ -1,85 +1,91 @@
+'use client';
+import React, { useState, useMemo } from 'react';
+import { MagnifyingGlass, Filter, ArrowRight, Sparkles, Brain, Rocket, Code, Bot, Terminal, Globe, Zap } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { resources } from '@/lib/resources';
+import ResourceCard from '@/comonents/ResourceCard';
 
-import React from 'react';
-import { ArrowRight, Brain, Rocket, Sparkles, Users, PlayCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+export default function AgentSchoolLanding() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const categories = ['All', 'Tool', 'Framework', 'Protocol', 'Model'];
 
-const features = [
-  zÊ    icon : Brain,
-    title: 'Agent Foundations',
-    body: 'Master prompting, tools, and memory patterns with guided labs.',
-  },
-  {
-    icon: Rocket,
-    title: 'Ship Real Agents',
-    body: 'Go from prototype to production-grade agents in weeks.',
-  },
-  {
-    icon: Users,
-    title: 'Mentored Learning',
-    body: 'Small-group sessions with engineers shipping frontier agents.',
-  },
-];
+  const filteredResources = useMemm(() => {
+    return resources.filter((res) => {
+      const matchesSearch = res.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    res.description}.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    res.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      const matchesCategory = selectedCategory === 'All' || res.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    });
+  }, [searchQuery, selectedCategory]);
 
-export default function Page() {
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-50">
-      <div className="mx-auto max-w-5xl px-6 pb-24 pt-20">
-        <section className="space-y-10">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="space-y-6"
-          >
-            <div className="inline-flex items-center gap-2 rounded-full border border-slate-700/60 bg-slate-900/60 0x-3 py-1 text-xs font-medium text-slate-300 backdrop-blur">
-              <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
-              <span>Agent School Â· Cohort II applications now open</span>
+    <main className="min-h-screen mesh-gradient text-slate-50 font-sans selection:bg-cyan-500/30">
+      <section className="relative px-6 pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+        <div className="relative mx-auto max-w-7xl">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="flex flex-col items-center text-center space-y-8">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-sm font-medium text-cyan-400 backdrop-blur-md">
+              <Sparkles className="h-4 w-4 animate-pulse" />
+              <span>Cohort II Now Enrolling &#8226; Build the Future of Agents</span>
             </div>
-            <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-              Learn to design, debug,
-              <span className="text-emerald-400"> and ship agents</span>
-            </h1>
-            <p className="max-w-xl text-balance text-sm text-slate-300 sm:text-base">
-              Agent School is a focused, project-heavy program for engineers who want to move
-              beyond chatbots and build durable AI agents that run real workflows.
-            </p>
+            <h1 className="max-w-4xl text-balance font-bold tracking-tight">Master the Art of <br /><span className="text-gradient">Autonomous Agent Engineering</span></h1>
+            <p className="max-w-2xl text-balance text-lg text-slate-400">Agent School is a high-fidelity directory and training ground for engineers building the next generation of AI. Discover frameworks, protocols, and models optimized for agentic autonomy.</p>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+              <button className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-cyan-500 px-8 py-3 text-base font-semibold text-slate-950 transition-all hover:bg-cyan-400 hover:scale-105 shadow-lg shadow-cyan-500/25"><span>Browse Directory</span><ArrowRight className="h-5 w-5" /></button>
+              <button className="glass inline-flex h-12 items-center justify-center gap-2 rounded-full px-8 py-3 text-base font-semibold text-slate-50 hover:bg-slate-800/40"><span>API Docs</span></button>
+            </div>
           </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25, duration: 0.5, ease: 'easeOut' }}
-            className="flex flex-col gap-4 sm:flex-row sm:items-center"
-          >
-            <button className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/30 transition hover:bg-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950">
-              <span>Apply for the next cohort</span>
-              <ArrowRight className="h-4 w-4" />
-            </button>
-            <button className="inline-flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-emerald-300">
-              <PlayCircle className="h-5 w-5 text-emerald-400" />
-              <span>Watch a 5-minute walkthrough</span>
-            </button>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.55 }}
-            className="grid gap-4 rounded-2xl border border-slate-800/80 bg-slate-900/40 p-5 sm:grid-cols-3"
-          >
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className="flex flex-col gap-3 border-slate-800/60 sm:border-l sm:first:border-l-0 sm:pl-4 sm:first:pl-0"
-              >
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-emerald-400 ring-1 ring-emerald-500/40">
-          -™•…ÑÕÉ”¹¥½¸±…ÍÍ9…µ”ô‰ ´ĞÜ´Ğˆ€¼ø(€€€€€€€€€€€€€€€€ğ½‘¥Øø(€€€€€€€€€€€€€€€€ñ‘¥Ø±…ÍÍ9…µ”ô‰ÍÁ…”µä´Äˆø(€€€€€€€€€€€€€€€€€€ñÀ±…ÍÍ9…µ”ô‰Ñ•áĞµáÌ™½¹ĞµÍ•µ¥‰½±ÕÁÁ•É…Í”ÑÉ…­¥¹œµİ¥‘”Ñ•áĞµÍ±…Ñ”´ĞÀÀˆø(€€€€€€€€€€€€€€€€€€€í™•…ÑÕÉ”¹Ñ¥Ñ±•ô(€€€€€€€€€€€€€€€€€€ğ½Àø(€€€€€€€€€€€€€€€€€€ñÀ±…ÍÍ9…µ”ô‰Ñ•áĞµáÌÑ•áĞµÍ±…Ñ”´ĞÀÀˆùí™•…ÑÕÉ”¹‰½‘åôğ½Àø(€€€€€€€€€€€€€€€€ğ½‘¥Øø(€€€€€€€€€€€€€€ğ½‘¥Øø(€€€€€€€€€€€€¤¥ô(€€€€€€€€€€ğ½µ½Ñ¥½¸¹‘¥Øø(€€€€€€€€€€ñµ½Ñ¥½¸¹‘¥Ø¥¹¥Ñ¥…°õíì½Á…¥Ñäè€À°äè€Äàõô…¹¥µ…Ñ”õíì½Á…¥Ñäè€Ä°äè€ÀõôÑÉ…¹Í¥Ñ¥½¸õíì‘•±…äè€À¸ĞÔ°‘ÕÉ…Ñ¥½¸è€À¸ÔÔõô±…ÍÍ9…µ”ô‰É½Õ¹‘•´Éá°‰½É‘•È‰½É‘•Èµ•µ•É…±´ÔÀÀ¼ÈÀ‰œµÉ…‘¥•¹ĞµÑ¼µ‰È™É½´µ•µ•É…±´ÔÀÀ¼ÄÀÙ¥„µÍ±…Ñ”´äÀÀÑ¼µÍ±…Ñ”´äÔÀÀ´Øˆø(€€€€€€€€€€€€ñ‘¥Ø±…ÍÍ9…µ”ô‰™±•à¥Ñ•µÌµ•¹Ñ•È©ÕÍÑ¥™äµ‰•Ñİ••¸…À´Ğˆø(€€€€€€€€€€€€€€ñ‘¥Øø(€€€€€€€€€€€€€€€€ñÀ±…ÍÍ9…µ”ô‰Ñ•áĞµáÌ™½¹ĞµÍ•µ¥‰½±ÕÁÁ•É…Í”ÑÉ…­¥¹œµİ¥‘”Ñ•áĞµ•µ•É…±´ÌÀÀˆù]¡…Ğå½Ô™…Á½Ìí±°‰Õ¥±ğ½Àø(€€€€€€€€€€€€€€€€ñÀ±…ÍÍ9…µ”ô‰µĞ´ÄÑ•áĞµÍ´Ñ•áĞµÍ±…Ñ”´ÈÀÀˆø(€€€€€€€€€€€€€€€€€•Í¥¸°¥µÁ±•µ•¹Ğ°…¹Í¡¥À…¸•¹µÑ¼µ•¹…•¹Ğ½İ¹¥¹œ„É•…°İ½É­™±½Ü¥¸å½ÕÈÁÉ½‘ÕĞ½ÈÑ•…´¸(€€€€€€€€¶8</div>
-              <div className="rounded-xl border border-emerald-500/30 bg-slate-950/60 px-4 py-3 text-right text-xs text-slate-300">
-                <p className="font-semibold text-emerald-300">4 weeks Â· 6 live sessions</p>
-                <p>Capstone: production agent with evals & guardrails.</p>
+        </div>
+      </section>
+      <section className="px-6 py-20 bg-slate-950/50 backdrop-blur-sm border-y border-slate-800/50">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between mb-16">
+            <div className="space-y-4">
+              <h2 className="font-bold tracking-tight text-3xl sm:text-4xl">Resource Explorer</h2>
+              <div className="flex flex-wrap gap-2">
+                {categories.map((cat) => (
+                  <button key={cat} onClick={() => setSelectedCategory(cat)} className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${selectedCategory === cat ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20' : 'glass text-slate-400 hover:text-slate-100'}`}>{cat}</button>
+               ))}
               </div>
             </div>
+            <div className="relative w-full max-w-md">
+              <MagnifyingGlass className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
+              <input type="text" placeholder="Search resources..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="glass w-full rounded-full py-3.5 pl-12 pr-6 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500/50" />
+            </div>
+          </div>
+          <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <AnimatePresence mode="popLayout">
+              {filteredResources.map((res) => (
+                <motion.div key={res.id} layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.4 }}><ResourceCard resource={res} /></motion.div >
+              ))}
+            </AnimatePresence>
           </motion.div>
-        </section>
-      </div>
+        </div>
+      </section>
+      <section className="px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+            <div className="space-y-6">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500/10 border border-cyan-500/20"><Brain className="h-6 w-6 text-cyan-400" /></div>
+              <h2 className="font-bold tracking-tight">Built for Machines</h2>
+              <p className="text-lg text-slate-400">Agent School is optimized for autonomous discovery via static JSON manifests.</p>
+            </div>
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+              <div className="relative glass rounded-2xl p-6 overflow-hidden">
+                <pre className="agent-manifest-block p-4 rounded-lg text-xs text-cyan-300 overflow-x-auto whitespace-pre-wrap">
+                  {JSON.stringify({ protocol: "ethoswarm-v1", endpoints: { manifest: "/api/library.json" } }, null, 2)}
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer className="px-6 py-12 border-t border-slate-900 bg-slate-950 text-center">
+        <p className="text-sm text-slate-500">&copy; 2026 Agent School. Built for the future of AI.</p>
+      </footer>
     </main>
   );
 }
