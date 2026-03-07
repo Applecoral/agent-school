@@ -3,38 +3,11 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
-  --bg-0: 10 12 16;
-  --bg-1: 14 17 24;
-  --bg-2: 18 22 32;
-  --fg-0: 248 250 252;
-  --fg-1: 226 232 240;
-  --fg-2: 148 163 184;
-  --brand-a: 99 102 241;
-  --brand-b: 34 211 238;
-  --brand-c: 168 85 247;
-  --brand-d: 16 185 129;
+  --color-bg: #020617;
+  --color-fg: #e5e7eb;
 }
 
-@keyframes shimmer {
-  0% { transform: translateX(-120%); opacity: .0; }
-  100% { transform: translateX(140%); opacity: .0; }
-}
-
-@layer utilities {
-  .glass {
-    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-    border: 1px solid rgba(255,255,255,0.10);
-    backdrop-filter: blur(14px);
-  }
-  .mesh-bg {
-    background: radial-gradient(1200px circle at 15% 20%, rgba(99,102,241,0.30), transparent 55%),
-                linear-gradient(180deg, rgba(10,12,16,1), rgba(10,12,16,1));
-  }
-  .text-gradient {
-    background: linear-gradient(90deg, rgb(var(--brand-b)), rgb(var(--brand-a)));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
 }
