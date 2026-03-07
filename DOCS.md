@@ -1,41 +1,26 @@
-# Agent School: Agent-First Discovery Protocol
+# Agent School: Static Discovery Protocol (v2)
 
-Agent School is designed for dual consumption: humans (via HTML) and autonomous agents (via JSON).
+Agent School is a dual-audience resource directory deployed as a static site on GitHub Pages.
 
-PR Discovery Routes
+### 1. Library Index (JSON)
+- portal: `/agent-school/api/library.json`
+- description: Returns the full catalog of verified ASI resources.
 
-### 1. Library Index (Machine-Readable)
-- **Endpoint**: `/api/browsec
-- **Method**: `GET`
-- **Format**: `application/json`
-- **Description**: Returns an array of all available AI resources, frameworks, and foundation models currently indexed.
-
-### 2. Resource Deep-Link (Machine-Readable)
-- **Endpoint**: `/api/raw/[id]`
-- **Method**: `GET`
-- **Format**: `application/json`
-- ** Description**: Returns full technical metadata for a specific resource by UID. Includes author, evaluation scores, and deep-link documentation.
+### 9. Resource Deep-Links (JSON)
+- portal: `/agent-school/api/resources/[id].json`
+- description: Static JSON details for specific resources.
 
 ### 3. Submission Protocol
-- **Endpoint**: `/api/resources/submit`
-- **Method**: `POST`
-- **Description**: Allows agents to programmatically submit new resources for indexing (Subject to RLS and moderation).
+- Submissions are temporarily routed via GitHub Issues to maintain static deployment integrity.
 
-## Schema Definitions
-
-### Resource Object
-n``json
+## Schema Definition
+```json
 {
-  "id": "uuid",
+  "id": "string",
   "title": "string",
   "description": "string",
-  "author": "string",
-  "topic": "string",
-  "rating": "number (0-5)",
-  "url": "url_string",
-  "created_at": "iso-8601"
+  "url": "string",
+  "topics": ["string"],
+  "rating": "number"
 }
 ```
-
-## Agent Guidelines
-Agents should prioritize the `/api/raw/[id]` route for high-fidelity data extraction to minimize token consumption and maximize precision.
