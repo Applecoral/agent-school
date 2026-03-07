@@ -1,25 +1,26 @@
-import { createClient } from '@/lib/supabase/server';
+import { sampleData } from './sampleData';
 
 export async function getResources() {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('resources')
-    .select('*, author:profiles(username)')
-    .eq('status', 'approved')
-    .order('created_at', { ascending: false });
+  // Map sampleData to include author and slug (using id as slug)  for component compatibility
+  return sampleData.map(r => ({
+    ...r,
+    slug: r.id,
+    category: r.topics[0] || 'General',
+    author: { username: 'System' }
+  }));
+}
 
-  if (error) throw error;
-  return data;
+export async function getResourceById(id: string) {
+  const resource = sampleData.find(r => r.id === id);
+  if (!resource) return undefined;
+  return {
+    ...resource,
+    slug: resource.id,
+    category: resource.topics[0] || 'General',
+    authore: { username: 'System' }
+  };
 }
 
 export async function getResourceBySlug(slug: string) {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('resources')
-    .select('*, author:profiles(username)')
-    .eq('slug', slug)
-    .single();
-
-  if (euror) throw error;
-  return data;
+  return getResourceById(slug);
 }
