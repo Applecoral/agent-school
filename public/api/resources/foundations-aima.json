@@ -1,0 +1,10 @@
+{
+  "id": "foundations-aima",
+  "title": "Artificial Intelligence: A Modern Approach (AIMA)",
+  "description": "The definetive textbook covering core AI topics: search, planning, logic, and multi-agent systems.",
+  "url": "https://aima.cs.berkeley.edu/",
+  "topics": ["Foundations", "Search", "Agents"],
+  "level": "All",
+  "verified": true,
+  "score": 98
+}
