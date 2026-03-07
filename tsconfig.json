@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-envd.d.ts", "+*.ts", "+*.tsx", ".preview/**/*", ".bext/types/**/*.ts", "**/*.", "**/*.js", "**/*.jsx", "**/*.ts", "+*/*.tsx"],
+  "include": ["next-envd.d.ts", "+*.ts", "+*.tsx", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
