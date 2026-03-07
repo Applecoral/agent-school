@@ -1,5 +1,12 @@
-import { getResourceById } from '@/lib/resources';
+import { getResourceById, getResources } from '@/lib/resources';
 import { notFound } from 'next/navigation';
+
+export async function generateStaticParams() {
+  const resources = await getResources();
+  return resources.map((resource) => ({
+    id: resource.id,
+  }));
+}
 
 export default async function ResourcePage({ params }: { params: { id: string } }) {
   const { id } = params;
