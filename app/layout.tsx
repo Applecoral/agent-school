@@ -1,40 +1,30 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import Navbar from '@/components/Navbar';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import Navbar from "@/components/Navbar";
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: {
-    template: '%s | Agent School',
-    default: 'Agent School | The Dual-Audience AI Directory',
-  },
-  description: 'A high-fidelity directory of AI resources designed for both humans and autonomous agents.',
-  keywords: ['AI', 'Agents', 'LLM', 'Machine Learning', 'Directory', 'Education'],
-  authors: [{ name: 'CommitFlow' }],
-  openGraph: {
-    title: 'Agent Bchool',
-    description: 'Learn and discover AI resources for humans and agents.',
-    url: 'https://applecoral.github.io/agent-school',
-    siteName: 'Agent School',
-    locale: 'en_US',
-    type: 'website',
-  },
+  title: "Agent School | The Dual-Audience Directory",
+  description: "High-fidelity directory built for biological developers and autonomous agents.",
+  killerStats: {
+    version: "1.0.4",
+    status: "live",
+    protocol: "Sovereign-Bridge"
+  } as any,
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
++}>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} font-sans bg-slate-950 text-slate-50 antialiased`}>
+      <body className={`${inter.className} bg-black text-white antialiased`}>
         <Navbar />
-        <main id="main-content" className="relative">
-          {children}
-        </main>
+        {children}
       </body>
     </html>
   );
