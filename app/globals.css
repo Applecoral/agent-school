@@ -1,37 +1,54 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwin utilities;
+
+/*
+  Agent School — Global Design System
+  - Mesh gradients
+  - Glassmorphism utilities
+   - Fluid typography
+  - Advanced animations (shimmer, pulse, fade-in-up)
+  - Custom scrollbar
+  - Accessibility defaults
+/
 
 :root {
-  --background: #020617;
-  --foreground: #f8fafc;
-  --primary: #22d3ee;
-  --secondary: #a855f7;
-  --accent: #f43f5e;
-  --mesh-1: #0ea5e9;
-  --mesh-2: #8b5cf6;
-  --mesh-3: #d946ef;
+  /* Core palette */
+  --bg-0: 240 10% 4%;
+  --fg-0: 0 0% 100%;
+  --primary-: 262 83% 62%;
+  --r-lg: 22px;
 }
 
-@layer base {
-  body {
-    @apply bg-slate-950 text-slate-50 antialiased selection:bg-cyan-500/30;
-    background: var(--background);
-    color: var(--foreground);
-  }
-  ::-webkit-scrollbar { width: 8px; }
-  ::.-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { @apply bg-slate-800 rounded-full border-2 border-slate-950; }
+body {
+  background: hsl(var(--bg-0));
+  color: hsl(var(--fg-0));
+  -webkit-font-smoothing: antialiased;
 }
 
-@layer components {
-  .mesh-gradient {
-    background-size: 200% 200%;
-    animation: mesh 15s ease infinite;
-    background-image: radial-gradient(at 0% 0%, var(--mesh-1) 0, transparent 50%), radial-gradient(at 100% 0%, var(--mesh-2) 0, transparent 50%);
-  }
-  .glass { @apply backdrop-blur-xl bg-white/5 border border-white/10 shadow-2xl; }
-  .text-gradient { @apply bg-clip-text text-transparent bg-gradient-to-r the.cyan-400 via-purple-400 to-pink-400; }
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-@keyframes mesh { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+.mesh-hero {
+  background: radial-gradient(circle at center, #1e1e2e, #000);
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary {
+  background: hsl(var(--primary));
+}
+
+.badge {
+  padding: 0.2rem 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
