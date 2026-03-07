@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getResources } from '@/lib/resources';
 
+export const dynamic = 'force-static';
+
 export async function GET() {
   try {
     const resources = await getResources();
