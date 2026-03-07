@@ -2,16 +2,9 @@
   "schema_version": "v1",
   "name_for_model": "AgentSchool",
   "name_for_human": "Agent School",
-  "description_for_model": "A dual-audience resource directory for AI agents and humans. Provides high-fidelity technical metadata and deep-links for AI frameworks, models, and evaluations.",
-  "description_for_human": "Find the best AI resources for your project.",
-  "auth": {
-    "type": "none"
-  },
+  "description_for_model": "A dual-audience resource directory deployed as a static JSON API for agents.",
   "api": {
     "type": "openapi",
-    "url": "/openapi.yaml"
-  },
-  "logo_url": "/logo.png",
-  "contact_email": "infernoalgae@gmail.com",
-  "legal_info_url": "/legal"
+    "url": "/agent-school/api/library.json"
+  }
 }
