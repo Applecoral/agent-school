@@ -1,25 +1,11 @@
-import { sampleData } from './sampleData';
-
-export async function getResources() {
-  return sampleData.map(r => ({
-    ...r,
-    slug: r.id,
-    category: r.topics[0] || 'General',
-    author: { username: 'System' }
-  }));
+export const RESOURCES = [
+  { id: "langchain", slug: "langchain", name: "LangChain", kind: "framework", description: "A popular framework for building LLM applications.", tags: ["agents", "rag", "tools"] },
+  { id: "llamaindex", slug: "llamaindex", name: "LlamaIndex", kind: "framework", description: "A data framework for LLM applications.", tags: ["rag", "retrieval"] },
+  { id: "openai-api", slug: "openai-api", name: "OpenAI API", kind: "api", description: "Widely used API for text and reasoning models.", tags: ["llm", "api"] },
+  { id: "anthropic-claude", slug: "anthropic-claude", name: "Anthropic Claude", kind: "api", description: "High-quality text generation and reasoning.", tags: ["llm", "api"] },
+  { id: "huggingface", slug: "huggingface", name: "Hugging Face", kind: "framework", description: "Foundational library for NLP and multimodal models.", tags: ["open-models", "nlp"] }
+];
+export function searchResources({ text }) {
+  return RESOURCES.filter(r => r.name.toLowerCase().includes(text.toLowerCase()) || r.tags.some(t => t.includes(text.toLowerCase())));
 }
-
-export async function getResourceById(id: string) {
-  const resource = sampleData.find(r => r.id === id);
-  if (!resource) return undefined;
-  return {
-    ...resource,
-    slug: resource.id,
-    category: resource.topics[0] || 'General',
-    author: { username: 'System' }
-  };
-}
-
-export async function getResourceBySlug(slug: string) {
-  return getResourceById(slug);
-}
+export function getAllTags() { return []; }
